@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <string.h>
 
 using namespace std;
 
@@ -33,7 +34,6 @@ string getHostPathFromUrl(string url) {
     int offset = 0;
     offset = offset==0 && url.compare(0, 8, "https://")==0 ? 8 : offset;
     offset = offset==0 && url.compare(0, 7, "http://" )==0 ? 7 : offset;
-    
     size_t pos = url.find("/", offset);
     string path = pos==string::npos ? "/" : url.substr(pos);
 
@@ -64,7 +64,7 @@ vector< pair<string, string> > extractUrls(string httpText) {
 		// For each startText, try to find all URLs matches
 		while (true) {
 			// Find the starting point of first possible URL
-			int startPos = httpRaw.find(startText);
+			size_t startPos = httpRaw.find(startText);
 			if (startPos == string::npos) break;
 			startPos += startText.length();
 
@@ -99,7 +99,7 @@ bool verifyUrl(string url) {
 
 	// Verify domain. Case urlDomain="" -> page in the same host, checking domain is exempted.
 	if (urlDomain != "" && !verifyDomain(urlDomain)) return false;
-	
+
 	// Verify file type
 	if (!verifyType(url)) return false;
 
@@ -119,8 +119,8 @@ bool verifyDomain(string url) {
 	bool flag = true;
 	for (auto type : allowedDomains) 
 		if (hasSuffix(url, type)) { // Check if contain allowed domain as the suffix
-			flag = false; break;									
-		}														
+			flag = false; break;
+		}
 	return !flag;
 }
 

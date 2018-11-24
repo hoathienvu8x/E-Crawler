@@ -6,13 +6,13 @@ all: crawler run clean
 file-output: remove-output crawler run-o clean
 
 crawler: crawler.o clientSocket.o parser.o
-	$(CC) $(CFLAGS) -o crawler crawler.o clientSocket.o parser.o
+	$(CC) $(CFLAGS) -o crawler crawler.o clientSocket.o parser.o -lpthread
 
 crawler.o: crawler.cpp clientSocket.h parser.h
-	$(CC) $(CFLAGS) -c crawler.cpp
+	$(CC) $(CFLAGS) -c crawler.cpp -lpthread
 
 clientSocket.o: clientSocket.cpp parser.h
-	$(CC) $(CFLAGS) -c clientSocket.cpp	
+	$(CC) $(CFLAGS) -c clientSocket.cpp -lpthread
 
 parser.o: parser.cpp
 	$(CC) $(CFLAGS) -c parser.cpp

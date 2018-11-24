@@ -7,7 +7,7 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <chrono>
-
+#include <string.h> 
 using namespace std;
 using namespace std::chrono;
 
